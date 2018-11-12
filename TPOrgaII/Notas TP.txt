@@ -1,8 +1,10 @@
 Graphics Magig:
 
 You have now installed GraphicsMagick. To test the installation select "Command Prompt" from the Windows Start menu. Within the window that appears type:
+
 gm convert logo: logo.jpg
 gm convert logo.jpg win:
+
 and the GraphicsMagick logo should be displayed in a window.
 For your convenience, the full content of the GraphicsMagick web site has been installed on your computer. This is available from the Windows start menu via "GraphicsMagick 1.X" -> "GraphicsMagick Web Pages".
 C and C++ developers who would like to use GraphicsMagick libraries for software development should build GraphicsMagick from the source package.  Additional programs and components are available which are not distributed via this binary installer.
@@ -15,6 +17,12 @@ nasm -f win32 -o suma2asm.obj suma2asm.asm
 nasm -f win32 -o llamasuma2.obj llamasuma2.asm
 
 gcc -Wall -o llamasuma2.exe suma2asm.obj llamasuma2.obj
+
+gm convert c.jpg c.rgb
+gm convert l.jpg l.rgb
+gm convert n.jpeg n.rgb
+
+gm convert -size 500x500 -depth 8 c.rgb c.jpg
 
 (500 x 500) x 3 = 750000, bytes?
 

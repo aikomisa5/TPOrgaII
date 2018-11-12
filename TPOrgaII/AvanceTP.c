@@ -7,6 +7,7 @@ int cantidad = 0;
 char byte [8] ;
 //char myarray[4] = "abc";
 char vec[750000];
+int contador = 0;
 
 // Prototipo de la funcion
 
@@ -44,6 +45,8 @@ int main(int argc, char *argv[]) {
 	//int cant = (int)argv[4];
     
     enmascarar_c(a,b,mask,cant);
+    
+    printf("El contador es: %d /n",contador);
     
     system("PAUSE");
     
@@ -93,7 +96,7 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	int i;
 	int z = 0;
 	for (i = 0; i<cantidad ; i++){
-		if (i%8 == 0){
+		/*if (i%8 == 0){
 			
 			//printf("El valor de byte es: %s \n" , byte);
 			
@@ -122,9 +125,21 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 		
 		//if (*(vectorMask+i) == "000000"){
 		//|| *(vectorMask+i) == "FFFFFF"){
+		
+		*/
+		
+	/*	int value = (int)*(vectorMask+i);
+		if (value == 0){
+			contador++;
+			*(vectorA+i) = *(vectorB+i);
+		}
+	*/
+	
+	*(vectorA+i) = 0;
 				
 	}
 	
+	//fputs(vectorA,fpA);
 	fwrite(vectorA , 1 , cantidad , fpA);
 
    	fclose(fpA);
