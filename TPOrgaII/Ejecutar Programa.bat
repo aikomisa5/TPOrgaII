@@ -1,4 +1,3 @@
-cd C:\Users\PC\Desktop
+cd C:\Users\mbritos\Desktop
 
-AvanceTP C:\Users\PC\Desktop\c.rgb, C:\Users\PC\Desktop\l.rgb, C:\Users\PC\Desktop\n.rgb, 750000
-
+AvanceTP C:\Users\mbritos\Desktop\c.rgb C:\Users\mbritos\Desktop\l.rgb C:\Users\mbritos\Desktop\n.rgb 750000

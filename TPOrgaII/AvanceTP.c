@@ -72,11 +72,17 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	char * vectorB =  (char*)malloc(cantidad);
 	char * vectorMask =  (char*)malloc(cantidad);
 	
-	strcpy(vec,vectorA);
+	//strcpy(vec,vectorA);
+	
 	//reservo espacio para los vectores
 	//a	= (char*)malloc(cantidad);
 	//b 	= (char*)malloc(cantidad);
 	//mask 	= (char*)malloc(cantidad);
+	
+	char aa [100];
+	strcpy(aa,a);
+	
+	printf("El valor de a es: %s \n",aa);
 	
 	//abro los archivos
 	FILE * fpA = fopen (a, "r+");
@@ -135,7 +141,7 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 		}
 	*/
 	
-	*(vectorA+i) = 0;
+	*(vectorA+i) = 00;
 				
 	}
 	
