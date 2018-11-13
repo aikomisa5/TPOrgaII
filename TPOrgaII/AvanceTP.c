@@ -6,7 +6,8 @@
 int cantidad = 0;
 char byte [8] ;
 //char myarray[4] = "abc";
-char vec[750000];
+int vec[1000];
+int vec2[100];
 int contador = 0;
 
 // Prototipo de la funcion
@@ -37,9 +38,9 @@ int main(int argc, char *argv[]) {
       printf("Se ingresaron argumentos de mas.\n");
    	}
    	
-   	unsigned char *a = (char *)argv[1];
-	unsigned char *b = (char *)argv[2];
-	unsigned char *mask = (char *)argv[3];
+   	unsigned char *a = (unsigned char *)argv[1];
+	unsigned char *b = (unsigned char *)argv[2];
+	unsigned char *mask = (unsigned char *)argv[3];
 	char * d = (char *) argv[4];
   	int cant = atoi(d);
 	//int cant = (int)argv[4];
@@ -59,48 +60,44 @@ int main(int argc, char *argv[]) {
 // Implementacion
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant){
-	/*
-	//tomo las rutas
-	char * fileA [100] = &(a); 
-	char fileB [100] = *(b);
-	char fileMask [100] = *(mask);
-	*/
 	
-	cantidad = cant;
+	//cantidad = cant;
+	cantidad=10;
 	
-	char * vectorA =  (char*)malloc(cantidad);
-	char * vectorB =  (char*)malloc(cantidad);
-	char * vectorMask =  (char*)malloc(cantidad);
-	
-	//strcpy(vec,vectorA);
-	
-	//reservo espacio para los vectores
-	//a	= (char*)malloc(cantidad);
-	//b 	= (char*)malloc(cantidad);
-	//mask 	= (char*)malloc(cantidad);
-	
-	char aa [100];
-	strcpy(aa,a);
-	
-	printf("El valor de a es: %s \n",aa);
+	unsigned char * vectorA =  (unsigned char*)malloc(cantidad);
+	unsigned char * vectorB =  (unsigned char*)malloc(cantidad);
+	unsigned char * vectorMask =  (unsigned char*)malloc(cantidad);
 	
 	//abro los archivos
 	FILE * fpA = fopen (a, "r+");
 	FILE * fpB = fopen (b, "r+");
 	FILE * fpMask = fopen (mask, "r+");
 	
+	if (fpA==NULL){
+        printf("file A doesnt exist!");
+        //return 1;
+    }
+    if (fpB==NULL){
+        printf("file B doesnt exist!");
+        //return 1;
+    }
+    if (fpMask==NULL){
+        printf("file Mask doesnt exist!");
+        //return 1;
+    }
+	
 	//copio el dato de los archivos al espacio reservado
 	fgets(vectorA, cantidad, fpA);
 	fgets(vectorB, cantidad, fpB);
 	fgets(vectorMask, cantidad, fpMask);
 	
-	printf("Imprimo el valor del vector: %s \n",vec);
-	printf("Imprimo el valor del vector: %s \n",vectorA);
-	printf("Imprimo el valor del vectorB: %s \n",vectorB);
-	printf("Imprimo el valor del vectorM: %s \n",vectorMask);
+	printf("Imprimo el valor del vectorA: %s \n",vectorA);
+	//printf("Imprimo el valor del vectorB: %s \n",vectorB);
+	//printf("Imprimo el valor del vectorM: %s \n",vectorMask);
 	
+	
+	//int z = 0;
 	int i;
-	int z = 0;
 	for (i = 0; i<cantidad ; i++){
 		/*if (i%8 == 0){
 			
@@ -141,13 +138,29 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 		}
 	*/
 	
-	*(vectorA+i) = 00;
-				
+	//*(vectorA+i) = 00;
+	//vec = *(vectorA+i);
+	//vec2 = &(vectorA+i);
+	
+	printf("El valor del caracter %d en c es: %c \n",i,*(vectorA+i));
+	printf("El valor del caracter %d en d es: %d \n",i,*(vectorA+i));
+	//printf("El valor del caracter %d en s es: %s \n",i,*(vectorA+i));
+	printf("El valor del caracter %d en u es: %u \n",i,*(vectorA+i));
+	printf("El valor del caracter %d en x es: %x \n",i,*(vectorA+i));
+										
 	}
 	
 	//fputs(vectorA,fpA);
-	fwrite(vectorA , 1 , cantidad , fpA);
-
+	//fwrite(vectorA , 1 , cantidad , fpA);
+	
+	printf("Array elements are\n");
+	for(i=0;i<10;i++)
+		printf("Decimal: %d, Hex: %X\n",vec[i],vec[i]);
+	
+	printf("Array2 elements are\n");
+	for(i=0;i<10;i++)
+		printf("Decimal: %d, Hex: %X\n",vec2[i],vec2[i]);	
+	
    	fclose(fpA);
 	fclose(fpB);	
 	fclose(fpMask);
