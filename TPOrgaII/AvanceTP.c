@@ -4,11 +4,8 @@
 
 // Prototipo de la funcion
 
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
-void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
-
-//argc -> entero -> contiene el número de argumentos que se han introducido.
-//argv -> array -> array de punteros a caracteres.
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
+void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +15,6 @@ int main(int argc, char *argv[])
 	{
 		printf("argv[%d] = %s\n", i, argv[i]);
 	}
-	//return 0;
 
 	printf("Program name %s\n", argv[0]);
 
@@ -41,37 +37,31 @@ int main(int argc, char *argv[])
 	char *d = (char *)argv[4];
 	int cant = atoi(d);
 
-	//llamada a metodo c
-	enmascarar_c(a, b, mask, cant);
-
-	system("PAUSE");
-
-	return 0;
-}
-
-// Implementacion
-
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
-{
-
-	//reservo espacio con malloc
 	printf("\n\nCantidad de bytes a procesar: %d\n", cant);
 	printf("Ruta a imagen 1:  %s\n", a);
 	printf("Ruta a imagen 2:  %s\n", b);
 	printf("Ruta a mascara :  %s\n", mask);
 	printf("cantidad :  %d\n\n", cant);
 
+	//Inicializamos los buffers
+	unsigned char *resultadoC = malloc(cant);
+	unsigned char *resultadoASM = malloc(cant);
 	unsigned char *vectorA = malloc(cant);
 	unsigned char *vectorB = malloc(cant);
 	unsigned char *vectorMask = malloc(cant);
-	unsigned char *resultado = malloc(cant);
 
+	//Abrir los archivos
 	//abro los archivos rgb con FILE
 	FILE *fpA = fopen(a, "rb");
 	FILE *fpB = fopen(b, "rb");
 	FILE *fpMask = fopen(mask, "rb");
-	FILE *fpResultado = fopen("test.rgb", "wb");
-	if (!fpResultado)
+	FILE *fpResultadoC = fopen("salida_c.rgb", "wb");
+	FILE *fpResultadoASM = fopen("salida_asm.rgb", "wb");
+	if (!fpResultadoC)
+	{
+		printf("No se pudo crear archivo de destino\n");
+	}
+	if (!fpResultadoASM)
 	{
 		printf("No se pudo crear archivo de destino\n");
 	}
@@ -89,27 +79,51 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 		printf("file Mask doesnt exist!");
 	}
 
+	//Cargamos los buffers
 	fread(vectorA, sizeof *vectorA, cant, fpA);
 	fread(vectorB, sizeof *vectorB, cant, fpB);
 	fread(vectorMask, sizeof *vectorMask, cant, fpMask);
 
-	int i;
-	for (i = 0; i < cant; i++)
-	{
-		resultado[i] = vectorMask[i] ? vectorA[i] : vectorB[i];
-	}
+	// medir el tiempo inicial
 
-	printf("iteraciones hechas :  %d\n\n", i);
+	enmascarar_c(vectorA, vectorB, vectorMask, cant, resultadoC);
+	// medir el tiempo final
 
-	fwrite(resultado, 1, cant, fpResultado);
+	// medir el tiempo inicial
+	enmascarar_asm(vectorA, vectorB, vectorMask, cant, resultadoASM);
+	// medir el tiempo final
 
+	//Cargar resultados en archivos
+	fwrite(resultadoC, 1, cant, fpResultadoC);
+	fwrite(resultadoASM, 1, cant, fpResultadoASM);
+	//Cerrar Archivos
 	fclose(fpA);
 	fclose(fpB);
 	fclose(fpMask);
-	fclose(fpResultado);
+	fclose(fpResultadoC);
+	fclose(fpResultadoASM);
 
+	//Liberar buffers
 	free(vectorA);
 	free(vectorB);
 	free(vectorMask);
-	free(resultado);
+	free(resultadoC);
+	free(resultadoASM);
+	system("PAUSE");
+
+	return 0;
+}
+
+// Implementacion
+
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado)
+{
+
+	int i;
+	for (i = 0; i < cant; i++)
+	{
+		resultado[i] = mask[i] ? a[i] : b[i];
+	}
+
+	printf("iteraciones hechas :  %d\n\n", i);
 }
