@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <cstdlib>
 
-int cantidad = 0;
-char byte[8];
-int vec[1000];
-int vec2[100];
-int contador = 0;
 
 // Prototipo de la funcion
 
@@ -47,8 +41,6 @@ int main(int argc, char *argv[])
 	char *mask = (char *)argv[3];
 	char *d = (char *)argv[4];
 	int cant = atoi(d);
-	//conversion a int con atoi
-	//int cant = (int)argv[4];
 
 	//llamada a metodo c
 	enmascarar_c(a, b, mask, cant);
@@ -62,9 +54,7 @@ int main(int argc, char *argv[])
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
 {
-
-	cantidad = cant;
-
+	
 	//reservo espacio con malloc
 	printf("\n\nCantidad de bytes a procesar: %d\n", cant);
 	printf("Ruta a imagen 1:  %s\n", a);
@@ -72,10 +62,10 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	printf("Ruta a mascara :  %s\n", mask);
 	printf("cantidad :  %d\n\n", cant);
 
-	unsigned char *vectorA = malloc(cantidad);
-	unsigned char *vectorB = malloc(cantidad);
-	unsigned char *vectorMask = malloc(cantidad);
-	unsigned char *resultado = malloc(cantidad);
+	unsigned char *vectorA = malloc(cant);
+	unsigned char *vectorB = malloc(cant);
+	unsigned char *vectorMask = malloc(cant);
+	unsigned char *resultado = malloc(cant);
 
 	//abro los archivos rgb con FILE
 	FILE *fpA = fopen(a, "rb");
@@ -103,23 +93,19 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 		//return 1;
 	}
 
-	fread(vectorA, sizeof *vectorA, cantidad, fpA);
-	fread(vectorB, sizeof *vectorB, cantidad, fpB);
-	fread(vectorMask, sizeof *vectorMask, cantidad, fpMask);
-
-	// fgets(vectorA, cantidad, fpA);
-	// fgets(vectorB, cantidad, fpB);
-	// fgets(vectorMask, cantidad, fpMask);
+	fread(vectorA, sizeof *vectorA, cant, fpA);
+	fread(vectorB, sizeof *vectorB, cant, fpB);
+	fread(vectorMask, sizeof *vectorMask, cant, fpMask);
 
 	int i;
-	for (i = 0; i < cantidad; i++)
+	for (i = 0; i < cant; i++)
 	{
 		resultado[i] = vectorMask[i] == 255 ? vectorA[i] : vectorB[i];
 	}
 
 	printf("iteraciones hechas :  %d\n\n", i);
 
-	fwrite(resultado, 1, cantidad, fpResultado);
+	fwrite(resultado, 1, cant, fpResultado);
 
 	fclose(fpA);
 	fclose(fpB);
