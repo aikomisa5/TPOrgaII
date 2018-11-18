@@ -11,8 +11,8 @@ int contador = 0;
 
 // Prototipo de la funcion
 
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, long cant);
-void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, long cant);
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
+void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 
 //argc -> entero -> contiene el número de argumentos que se han introducido.
 //argv -> array -> array de punteros a caracteres.
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	char *b = (char *)argv[2];
 	char *mask = (char *)argv[3];
 	char *d = (char *)argv[4];
-	long cant = atoi(d);
+	int cant = atoi(d);
 	//conversion a int con atoi
 	//int cant = (int)argv[4];
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
 // Implementacion
 
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, long cant)
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
 {
 
 	cantidad = cant;
@@ -111,7 +111,7 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, long 
 	// fgets(vectorB, cantidad, fpB);
 	// fgets(vectorMask, cantidad, fpMask);
 
-	long i;
+	int i;
 	for (i = 0; i < cantidad; i++)
 	{
 		resultado[i] = vectorMask[i] == 255 ? vectorA[i] : vectorB[i];
