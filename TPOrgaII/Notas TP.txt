@@ -9,6 +9,9 @@ Probar
 Ver la imagen resultado:
 gm convert -depth 8 -size 500x500 test.rgb win:
 
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
 Graphics Magig:
 
 You have now installed GraphicsMagick. To test the installation select "Command Prompt" from the Windows Start menu. Within the window that appears type:
