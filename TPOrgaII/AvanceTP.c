@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // Prototipo de la funcion
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
@@ -54,7 +53,7 @@ int main(int argc, char *argv[])
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
 {
-	
+
 	//reservo espacio con malloc
 	printf("\n\nCantidad de bytes a procesar: %d\n", cant);
 	printf("Ruta a imagen 1:  %s\n", a);
@@ -80,17 +79,14 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	if (fpA == NULL)
 	{
 		printf("file A doesnt exist!");
-		//return 1;
 	}
 	if (fpB == NULL)
 	{
 		printf("file B doesnt exist!");
-		//return 1;
 	}
 	if (fpMask == NULL)
 	{
 		printf("file Mask doesnt exist!");
-		//return 1;
 	}
 
 	fread(vectorA, sizeof *vectorA, cant, fpA);
@@ -100,7 +96,7 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	int i;
 	for (i = 0; i < cant; i++)
 	{
-		resultado[i] = vectorMask[i] == 255 ? vectorA[i] : vectorB[i];
+		resultado[i] = vectorMask[i] ? vectorA[i] : vectorB[i];
 	}
 
 	printf("iteraciones hechas :  %d\n\n", i);
