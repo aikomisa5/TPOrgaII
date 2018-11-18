@@ -23,6 +23,7 @@ gm convert l.jpg l.rgb
 gm convert n.jpeg n.rgb
 
 gm convert -size 500x500 -depth 8 c.rgb c.jpg
+gm convert -depth 8 -size 500x500 mask.rgb win:
 
 (500 x 500) x 3 = 750000, bytes?
 
