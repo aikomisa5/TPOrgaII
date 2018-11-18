@@ -5,7 +5,6 @@
 
 int cantidad = 0;
 char byte [8] ;
-//char myarray[4] = "abc";
 int vec[1000];
 int vec2[100];
 int contador = 0;
@@ -15,7 +14,7 @@ int contador = 0;
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 
-//argc -> entero -> contiene el número de argumentos que se han introducido.
+//argc -> entero -> contiene el nÃºmero de argumentos que se han introducido.
 //argv -> array -> array de punteros a caracteres.
 
 int main(int argc, char *argv[]) {
@@ -38,40 +37,44 @@ int main(int argc, char *argv[]) {
       printf("Se ingresaron argumentos de mas.\n");
    	}
    	
-   	unsigned char *a = (unsigned char *)argv[1];
-	unsigned char *b = (unsigned char *)argv[2];
-	unsigned char *mask = (unsigned char *)argv[3];
+   	char *a = (char *)argv[1];
+	char *b = (char *)argv[2];
+	char *mask = (char *)argv[3];
 	char * d = (char *) argv[4];
   	int cant = atoi(d);
+	//conversion a int con atoi
 	//int cant = (int)argv[4];
     
+	//llamada a metodo c
     enmascarar_c(a,b,mask,cant);
     
-    printf("El contador es: %d /n",contador);
+    printf("Cantidad de iteraciones cargadas en el contador: %d /n",contador);
     
     system("PAUSE");
     
     return 0;
     
-	//int c = suma2(4, 5);
-	//printf("4 + 5 = %d\n", c);
 }
 
 // Implementacion
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant){
 	
-	//cantidad = cant;
-	cantidad=10;
+	//Descomentar para probar realmente:
+	cantidad = cant;
 	
+	//Descomentar solo para test lectura:
+	//cantidad=11;
+	
+	//reservo espacio con malloc
 	unsigned char * vectorA =  (unsigned char*)malloc(cantidad);
 	unsigned char * vectorB =  (unsigned char*)malloc(cantidad);
 	unsigned char * vectorMask =  (unsigned char*)malloc(cantidad);
 	
-	//abro los archivos
-	FILE * fpA = fopen (a, "r+");
-	FILE * fpB = fopen (b, "r+");
-	FILE * fpMask = fopen (mask, "r+");
+	//abro los archivos rgb con FILE
+	FILE * fpA = fopen (a, "rb");
+	FILE * fpB = fopen (b, "rb");
+	FILE * fpMask = fopen (mask, "rb");
 	
 	if (fpA==NULL){
         printf("file A doesnt exist!");
@@ -99,68 +102,31 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	//int z = 0;
 	int i;
 	for (i = 0; i<cantidad ; i++){
-		/*if (i%8 == 0){
-			
-			//printf("El valor de byte es: %s \n" , byte);
-			
-			if (byte == "000000"){
-			printf("MATCHEO 1 \n");
-			}
-			else if (byte == "00000000"){
-			printf("MATCHEO 2\n");
-			}
-			
-			char vacio[] = "";
-			strcpy(byte,vacio);
-			z=0;
-		}
 		
-		byte[z] = *(vectorMask+i);
-		
-		printf("Valor de byte: %d \n",*(vectorMask+i));
-		printf("Valor de ARRAY BYTE: %d \n", byte);
-		
-		z++;
-		
-		if (i == 10){
-			system("PAUSE");
-		}
-		
-		//if (*(vectorMask+i) == "000000"){
-		//|| *(vectorMask+i) == "FFFFFF"){
-		
-		*/
-		
-	/*	int value = (int)*(vectorMask+i);
-		if (value == 0){
+		//one way..	
+		unsigned char value = (vectorMask[i]);
+		if (value ==  255 ){//0xFF 
 			contador++;
-			*(vectorA+i) = *(vectorB+i);
+			vectorA[i] = vectorB[i];
 		}
-	*/
 	
+	//alternativa segurn el profesor
 	//*(vectorA+i) = 00;
 	//vec = *(vectorA+i);
 	//vec2 = &(vectorA+i);
 	
-	printf("El valor del caracter %d en c es: %c \n",i,*(vectorA+i));
-	printf("El valor del caracter %d en d es: %d \n",i,*(vectorA+i));
+	printf("El valor del caracter %d en hexa x (unsigned hexa integer)es: %x \n",i,vectorA[i]);
+	
+	//printf("El valor del caracter %d en c (char caracter) es: %c \n",i,*(vectorA+i));
+	//printf("El valor del caracter %d en d (int con signo)es: %d \n",i,*(vectorA+i));
 	//printf("El valor del caracter %d en s es: %s \n",i,*(vectorA+i));
-	printf("El valor del caracter %d en u es: %u \n",i,*(vectorA+i));
-	printf("El valor del caracter %d en x es: %x \n",i,*(vectorA+i));
+	//printf("El valor del caracter %d en u (unsigned decimal integer) es: %u \n",i,*(vectorA+i));
+	//printf("El valor del caracter %d en hexa x (unsigned hexa integer)es: %x \n",i,*(vectorA+i));
 										
 	}
 	
-	//fputs(vectorA,fpA);
 	//fwrite(vectorA , 1 , cantidad , fpA);
-	
-	printf("Array elements are\n");
-	for(i=0;i<10;i++)
-		printf("Decimal: %d, Hex: %X\n",vec[i],vec[i]);
-	
-	printf("Array2 elements are\n");
-	for(i=0;i<10;i++)
-		printf("Decimal: %d, Hex: %X\n",vec2[i],vec2[i]);	
-	
+		
    	fclose(fpA);
 	fclose(fpB);	
 	fclose(fpMask);
@@ -170,6 +136,8 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	free(vectorMask);
 }
 
+
+//Para usar como guia - No sirve
 /*
 void crearSecuencia (int *vector, int inicial, int incremento, int cantidad){
 	vector 	= (int*)malloc(sizeof(int) * cantidad);
