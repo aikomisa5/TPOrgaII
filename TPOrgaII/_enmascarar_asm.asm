@@ -16,7 +16,8 @@ vectorResultadoPuntero dd 0 ;OJO! es un puntero, los punteros tienen tamano de 4
 ;unico que sirve es para saber donde esta el valor inicial, y a partir de ahi nos vamos desplazando de a 1 byte
 ;al fin y al cabo acá vectorA,vectorB,vectorMask actuarian como punteros
 
-unos times 64 db (255)
+unos times 64 db (255) ;64 valores de 1 byte seteados en 255
+ceros times 64 db (0) ;64 valores de 1 byte seteados en 0
 ;variable db 255
 
 section .text
@@ -81,17 +82,23 @@ _enmascarar_asm:
   MOVQ MM0,[vectorMask+EBX]
   MOVQ MM1,[vectorA+EBX]
   MOVQ MM2,[vectorB+EBX]  
-  MOVQ MM3,[vectorResultado+EBX]
+  ;MOVQ MM3,[vectorResultadoPuntero+EBX] ;en definitiva esto esta cargando todos ceros porque el vector al que apunta el puntero esta vacio
+  MOVQ MM3,[ceros] ;en cada iteracion cargamos ceros en MM3
   
   ;PAND MM1,MM0 ;aplicamos mascara a vectorA
   ;PANDN MM0,MM7 ;invertimos mascara
   ;PAND MM2,MM0 ;aplicamos mascara a vectorB
-  ;PXOR MM3,MM3 ;inicializamos vector resultado en 0
+  
+  ;PXOR MM3,MM3 ;inicializamos vector resultado en 0 NO LO NECESITAMOS MAS!
+  
   ;POR  MM3,MM1 ;cargamos vectorA en vector resultado
   ;POR  MM3,MM2 ;cargamos vectorB en vector resultado
   
-  MOVQ [vectorResultado+EBX], MM1 
-  ADD EBX,1
+  
+  ;MOVQ [vectorResultado+EBX], MM1 ;No usar
+  ;ADD EBX,1 ;No usar
+  MOVQ [vectorResultadoPuntero+EBX], MM1 ;seteamos 64 bits a partir de la posicion en memoria vectorResultadoPuntero+EBX
+  ADD EBX,64 ;nos desplazamos de a 64 bits porque los registro MMX son de tamano 64 bits
   LOOP LOOPER
   MOV ESP,EBP
   POP EBP   
