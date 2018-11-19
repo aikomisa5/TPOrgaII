@@ -71,7 +71,7 @@ _enmascarar_asm:
   MOV ECX, [cantidad]
   
   ;to delete
-  MOV ECX,1 ;OJO! BORRAR ANTES DE COMPILAR
+  ;MOV ECX,1 ;OJO! BORRAR ANTES DE COMPILAR
   
   ;No borrar
   MOVQ MM7,[unos]        
@@ -85,15 +85,14 @@ _enmascarar_asm:
   ;MOVQ MM3,[vectorResultadoPuntero+EBX] ;en definitiva esto esta cargando todos ceros porque el vector al que apunta el puntero esta vacio
   MOVQ MM3,[ceros] ;en cada iteracion cargamos ceros en MM3
   
-  ;PAND MM1,MM0 ;aplicamos mascara a vectorA
-  ;PANDN MM0,MM7 ;invertimos mascara
-  ;PAND MM2,MM0 ;aplicamos mascara a vectorB
+  PAND MM1,MM0 ;aplicamos mascara a vectorA
+  PANDN MM0,MM7 ;invertimos mascara
+  PAND MM2,MM0 ;aplicamos mascara a vectorB
   
   ;PXOR MM3,MM3 ;inicializamos vector resultado en 0 NO LO NECESITAMOS MAS!
   
-  ;POR  MM3,MM1 ;cargamos vectorA en vector resultado
-  ;POR  MM3,MM2 ;cargamos vectorB en vector resultado
-  
+  POR  MM3,MM1 ;cargamos vectorA en vector resultado
+  POR  MM3,MM2 ;cargamos vectorB en vector resultado
   
   ;MOVQ [vectorResultado+EBX], MM1 ;No usar
   ;ADD EBX,1 ;No usar
