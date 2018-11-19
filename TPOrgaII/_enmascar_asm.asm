@@ -26,6 +26,8 @@ _enmascarar_asm:
   MOV [vectorMask],EDX
   MOV EDX,[ESP+20] ;puntero a cantidad
   MOV [cantidad],EDX
+  MOV EDX,[ESP+24] ;puntero a resultado
+  MOV [vectorResultado],EDX
    
   MOV ECX, [cantidad]
   ;to delete
@@ -41,13 +43,13 @@ _enmascarar_asm:
   MOVQ MM2,[vectorB+EBX]  
   MOVQ MM3,[vectorResultado+EBX]
   
-  PAND MM1,MM0 ;aplicamos mascara a vectorA
-  PANDN MM0,MM7 ;invertimos mascara
-  PAND MM2,MM0 ;aplicamos mascara a vectorB
-  PXOR MM3,MM3 ;inicializamos vector resultado en 0
-  POR  MM3,MM1 ;cargamos vectorA en vector resultado
-  POR  MM3,MM2 ;cargamos vectorB en vector resultado
-  MOVQ [vectorResultado+EBX], MM3 
+  ;PAND MM1,MM0 ;aplicamos mascara a vectorA
+  ;PANDN MM0,MM7 ;invertimos mascara
+  ;PAND MM2,MM0 ;aplicamos mascara a vectorB
+  ;PXOR MM3,MM3 ;inicializamos vector resultado en 0
+  ;POR  MM3,MM1 ;cargamos vectorA en vector resultado
+  ;POR  MM3,MM2 ;cargamos vectorB en vector resultado
+  MOVQ [vectorResultado+EBX], MM1 
   ADD EBX,64
   LOOP LOOPER
   MOV ESP,EBP

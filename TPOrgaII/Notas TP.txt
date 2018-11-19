@@ -7,7 +7,8 @@ Probar
 ./avance.exe c.rgb l.rgb mask.rgb 750000
 
 Ver la imagen resultado:
-gm convert -depth 8 -size 500x500 test.rgb win:
+gm convert -depth 8 -size 500x500 salida_c.rgb win:
+gm convert -depth 8 -size 500x500 salida_asm.rgb win:
 
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
