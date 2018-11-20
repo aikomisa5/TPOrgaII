@@ -2,7 +2,7 @@
 
 section .data
 vector db 1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8
-vectorResultado db 0
+vectorResultado times 64 db (0)
 
 section .text
 global CMAIN
@@ -13,7 +13,7 @@ CMAIN:
    
     MOV EDX,vector ;copio puntero de vector a EDX
     MOV EBX,0 ;inicializo EBX en 0 para desplazarme sobre el vector
-    MOV ECX,16 ;inicializo ECX con la cantidad de valores, para poder iterar x veces
+    MOV ECX,64 ;inicializo ECX con la cantidad de valores, para poder iterar x veces
     LOPEAR:
     MOV AL,[EDX+EBX] ;copio el valor que se encuentra en la posicion EBX del vector en el registro de 8 bits AL
     MOV [vectorResultado+EBX],AL ;copio el valor de AL en la posicion EBX del vectorResultado
