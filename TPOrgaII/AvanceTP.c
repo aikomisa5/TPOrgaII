@@ -5,7 +5,7 @@
 // Prototipo de la funcion
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
-void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
+void enmascararASM(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +48,8 @@ int main(int argc, char *argv[])
 	unsigned char *vectorAAsm = malloc(cant);
 	unsigned char *vectorB = malloc(cant);
 	unsigned char *vectorMask = malloc(cant);
+	unsigned char *resultadoASM = malloc(cant);
+	
 
 	//Abrir los archivos
 	//abro los archivos rgb con FILE
@@ -90,7 +92,7 @@ int main(int argc, char *argv[])
 	// medir el tiempo final
 
 	// medir el tiempo inicial
-	//enmascarar_asm(vectorA, vectorB, vectorMask, cant, resultadoASM);
+	enmascararASM(vectorAAsm, vectorB, vectorMask, cant, resultadoASM);
 	// medir el tiempo final
 
 	//Cargar resultados en archivos

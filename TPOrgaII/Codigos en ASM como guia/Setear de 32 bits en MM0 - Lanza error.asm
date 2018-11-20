@@ -2,7 +2,7 @@
 
 section .data
 vector db 1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8
-vectorResultado times 64 db (0)
+vectorResultado times 64 db (0) ;Fixeado con esta linea
 
 section .text
 global CMAIN
