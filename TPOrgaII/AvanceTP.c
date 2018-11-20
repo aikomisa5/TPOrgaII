@@ -4,7 +4,7 @@
 
 // Prototipo de la funcion
 
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 void enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
 
 int main(int argc, char *argv[])
@@ -44,9 +44,8 @@ int main(int argc, char *argv[])
 	printf("cantidad :  %d\n\n", cant);
 
 	//Inicializamos los buffers
-	unsigned char *resultadoC = malloc(cant);
-	unsigned char *resultadoASM = malloc(cant);
-	unsigned char *vectorA = malloc(cant);
+	unsigned char *vectorAC = malloc(cant);
+	unsigned char *vectorAAsm = malloc(cant);
 	unsigned char *vectorB = malloc(cant);
 	unsigned char *vectorMask = malloc(cant);
 
@@ -80,22 +79,23 @@ int main(int argc, char *argv[])
 	}
 
 	//Cargamos los buffers
-	fread(vectorA, sizeof *vectorA, cant, fpA);
+	fread(vectorAC, sizeof *vectorAC, cant, fpA);
+	fread(vectorAAsm, sizeof *vectorAAsm, cant, fpA);
 	fread(vectorB, sizeof *vectorB, cant, fpB);
 	fread(vectorMask, sizeof *vectorMask, cant, fpMask);
 
 	// medir el tiempo inicial
 
-	enmascarar_c(vectorA, vectorB, vectorMask, cant, resultadoC);
+	enmascarar_c(vectorAC, vectorB, vectorMask, cant);
 	// medir el tiempo final
 
 	// medir el tiempo inicial
-	enmascarar_asm(vectorA, vectorB, vectorMask, cant, resultadoASM);
+	//enmascarar_asm(vectorA, vectorB, vectorMask, cant, resultadoASM);
 	// medir el tiempo final
 
 	//Cargar resultados en archivos
-	fwrite(resultadoC, 1, cant, fpResultadoC);
-	fwrite(resultadoASM, 1, cant, fpResultadoASM);
+	fwrite(vectorAC, 1, cant, fpResultadoC);
+	fwrite(vectorAAsm, 1, cant, fpResultadoASM);
 	//Cerrar Archivos
 	fclose(fpA);
 	fclose(fpB);
@@ -104,11 +104,10 @@ int main(int argc, char *argv[])
 	fclose(fpResultadoASM);
 
 	//Liberar buffers
-	free(vectorA);
+	free(vectorAC);
+	free(vectorAAsm);
 	free(vectorB);
 	free(vectorMask);
-	free(resultadoC);
-	free(resultadoASM);
 	system("PAUSE");
 
 	return 0;
@@ -116,13 +115,13 @@ int main(int argc, char *argv[])
 
 // Implementacion
 
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado)
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
 {
 
 	int i;
 	for (i = 0; i < cant; i++)
 	{
-		resultado[i] = mask[i] ? a[i] : b[i];
+		a[i] = mask[i] ? a[i] : b[i];
 	}
 
 	printf("iteraciones hechas :  %d\n\n", i);
