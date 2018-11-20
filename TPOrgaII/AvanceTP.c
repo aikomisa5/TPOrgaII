@@ -5,7 +5,7 @@
 // Prototipo de la funcion
 
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
-void enmascararASM(unsigned char *a, unsigned char *b, unsigned char *mask, int cant, unsigned char *resultado);
+void enmascararASM(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 
 int main(int argc, char *argv[])
 {
@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
 	unsigned char *vectorAAsm = malloc(cant);
 	unsigned char *vectorB = malloc(cant);
 	unsigned char *vectorMask = malloc(cant);
-	unsigned char *resultadoASM = malloc(cant);
 	
 
 	//Abrir los archivos
@@ -82,17 +81,18 @@ int main(int argc, char *argv[])
 
 	//Cargamos los buffers
 	fread(vectorAC, sizeof *vectorAC, cant, fpA);
+	fseek(fpA, 0, SEEK_SET);
 	fread(vectorAAsm, sizeof *vectorAAsm, cant, fpA);
 	fread(vectorB, sizeof *vectorB, cant, fpB);
 	fread(vectorMask, sizeof *vectorMask, cant, fpMask);
 
 	// medir el tiempo inicial
 
-	enmascarar_c(vectorAC, vectorB, vectorMask, cant);
+	//enmascarar_c(vectorAC, vectorB, vectorMask, cant);
 	// medir el tiempo final
 
 	// medir el tiempo inicial
-	enmascararASM(vectorAAsm, vectorB, vectorMask, cant, resultadoASM);
+	enmascararASM(vectorAAsm, vectorB, vectorMask, cant);
 	// medir el tiempo final
 
 	//Cargar resultados en archivos
