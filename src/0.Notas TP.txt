@@ -12,6 +12,9 @@ Ver la imagen resultado:
 gm convert -depth 8 -size 512x512 salida_c.rgb win:
 gm convert -depth 8 -size 512x512 salida_asm.rgb win:
 
+gm convert -depth 8 -size 4096x4096 mask.rgb win:
+gm convert -depth 8 -size 4096x4096 salida_c.rgb win:
+gm convert -depth 8 -size 4096x4096 salida_asm.rgb win:
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 
@@ -21,7 +24,7 @@ Convertir una jpg a rgb :
 gm convert c.jpg c.rgb
 
 redimensionar:
-gm mogrify -size 512x512 -resize 100x100! c.rgb
+gm mogrify -depth 8 -size 512x512 -resize 4096x4096! c.rgb
 
 convertir:
 gm convert -size 512x512 -depth 8 c.rgb c.jpg
