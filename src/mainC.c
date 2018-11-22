@@ -8,6 +8,16 @@
 void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 void enmascararASM(unsigned char *a, unsigned char *b, unsigned char *mask, int cant);
 
+// Implementacion C
+void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
+{
+	int i;
+	for (i = 0; i < cant; i++)
+	{
+		a[i] = mask[i] ? b[i] : a[i];
+	}
+}
+
 //funciones auxiliares
 void guardarResultadoEnArchivo(char *nombreArchivo, unsigned char *buffer, int cant){
 	FILE *fpFile = fopen(nombreArchivo, "wb");
@@ -104,12 +114,4 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-// Implementacion
-void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int cant)
-{
-	int i;
-	for (i = 0; i < cant; i++)
-	{
-		a[i] = mask[i] ? b[i] : a[i];
-	}
-}
+

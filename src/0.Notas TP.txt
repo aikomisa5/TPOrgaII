@@ -1,12 +1,12 @@
 Para probarlo:
 
 Compilar: 
-nasm -f win32 -o enmascarar_asm.obj enmascararASM.asm &&
-gcc -Wall -c AvanceTP.c &&
-gcc -Wall -o avance.exe enmascarar_asm.obj AvanceTP.o
+nasm -f win32 -o mainAsm.o mainAsm.asm &&
+gcc -Wall -c mainC.c &&
+gcc -Wall -o main.exe mainAsm.o mainC.o
 
 Probar
-./avance.exe 1.rgb 2.rgb mask.rgb 512 512
+./main.exe 1.rgb 2.rgb mask.rgb 512 512
 
 Ver la imagen resultado:
 gm convert -depth 8 -size 512x512 salida_c.rgb win:
@@ -15,40 +15,17 @@ gm convert -depth 8 -size 512x512 salida_asm.rgb win:
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 
-Graphics Magig:
+Graphics Magick:
 
-You have now installed GraphicsMagick. To test the installation select "Command Prompt" from the Windows Start menu. Within the window that appears type:
-
-gm convert logo: logo.jpg
-gm convert logo.jpg win:
-
-and the GraphicsMagick logo should be displayed in a window.
-For your convenience, the full content of the GraphicsMagick web site has been installed on your computer. This is available from the Windows start menu via "GraphicsMagick 1.X" -> "GraphicsMagick Web Pages".
-C and C++ developers who would like to use GraphicsMagick libraries for software development should build GraphicsMagick from the source package.  Additional programs and components are available which are not distributed via this binary installer.
-
-
-NASM:
-
-nasm -f win32 -o suma2asm.obj suma2asm.asm
-
-nasm -f win32 -o llamasuma2.obj llamasuma2.asm
-
-gcc -Wall -o llamasuma2.exe suma2asm.obj llamasuma2.obj
-
+Convertir una jpg a rgb :
 gm convert c.jpg c.rgb
-gm convert l.jpg l.rgb
-gm convert n.jpeg n.rgb
 
+redimensionar:
+gm mogrify -size 512x512 -resize 100x100! c.rgb
+
+convertir:
 gm convert -size 512x512 -depth 8 c.rgb c.jpg
 gm convert -depth 8 -size 500x500 mask.rgb win:
 
-(500 x 500) x 3 = 750000, bytes?
-
-To do:
-
-1. Entonces si tengo 750.000 bytes, y cada pixel ocupa 3 bytes, necesito ir recorriendo el array de a 24 posiciones?
-
-FFFFFF
-000000
 
 
