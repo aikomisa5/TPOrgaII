@@ -5,15 +5,10 @@ cantidad dd 0 ;cantidad de tama�o int, es decir 4 bytes
 ;resultadoPuntero dd 0 ;OJO! es un puntero, los punteros tienen tamano de 4 bytes
 ;lo declaramos asi porque vamos a setear los valores del vector resultado directo a la posicion de memoria
 ;que nos especifica el puntero que viene como argumento
-;se declara diferente a vectorA, vectorB, vectorMask, porque aca en ningun momento necesitamos setear algo
-;directamente en las posiciones de memoria de dichos vectores, sino que lo unico que necesitamos son leer los
-;valores. No olvidar que lo que viene como argumento son punteros
-;Y en realidad vectorA, vectorB y vectorMask son etiquetas que apuntan a una posicion de memoria, y para lo
-;unico que sirve es para saber donde esta el valor inicial, y a partir de ahi nos vamos desplazando de a 1 byte
-;al fin y al cabo ac� vectorA,vectorB,vectorMask actuarian como punteros
 
-unos times 32 db (255) ;64 valores de 1 byte seteados en 255
-ceros times 32 db (0) ;64 valores de 1 byte seteados en 0
+
+unos times 32 db (255) ;32 valores de 1 byte seteados en 255
+ceros times 32 db (0) ;32 valores de 1 byte seteados en 0
 
 section .text
 
