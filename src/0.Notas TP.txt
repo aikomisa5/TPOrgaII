@@ -1,5 +1,14 @@
 Para probarlo:
 
+Para probar con casos automatizados:
+1. copiar a src/ archivos 1.rgb, 2.rgb y mask.rgb.
+2. compilar programa ejecutor de pruebas:
+    gcc -o test.exe test.c
+3. correr programa de test:
+    test.exe <cantidad de tests a realizar>
+    ejemplo:
+    test.exe 10
+
 Compilar: 
 nasm -f win32 -o mainAsm.o mainAsm.asm &&
 gcc -Wall -c mainC.c &&
