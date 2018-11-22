@@ -6,7 +6,7 @@ gcc -Wall -c AvanceTP.c &&
 gcc -Wall -o avance.exe enmascarar_asm.obj AvanceTP.o
 
 Probar
-./avance.exe c.rgb l.rgb mask.rgb 786432
+./avance.exe 1.rgb 2.rgb mask.rgb 512 512
 
 Ver la imagen resultado:
 gm convert -depth 8 -size 512x512 salida_c.rgb win:
@@ -39,7 +39,7 @@ gm convert c.jpg c.rgb
 gm convert l.jpg l.rgb
 gm convert n.jpeg n.rgb
 
-gm convert -size 500x500 -depth 8 c.rgb c.jpg
+gm convert -size 512x512 -depth 8 c.rgb c.jpg
 gm convert -depth 8 -size 500x500 mask.rgb win:
 
 (500 x 500) x 3 = 750000, bytes?

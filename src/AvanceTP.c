@@ -110,6 +110,6 @@ void enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *mask, int c
 	int i;
 	for (i = 0; i < cant; i++)
 	{
-		a[i] = mask[i] ? a[i] : b[i];
+		a[i] = mask[i] ? b[i] : a[i];
 	}
 }

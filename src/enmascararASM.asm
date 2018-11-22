@@ -27,41 +27,31 @@ _enmascararASM:
   MOV [cantidad],EDX
   
   MOV EBX,0
-  
+  MOVD XMM7,[unos] ; cargamos unos a xmm7 para poder invertir la mascara luego.        
+
   ciclar:
   
-  cargoA: 
   MOV EDX,[EBP+8] ;puntero a imagen A
   MOVD XMM6,dword[EDX+EBX]
-    
-  cargoB:
+ 
   MOV EDX,[EBP+12] ;puntero a imagen B
   MOVD XMM5,dword[EDX+EBX]
-    
-  cargoMask:
-  MOV EDX,[EBP+16] ;puntero a imagen C
+
+  MOV EDX,[EBP+16] ;puntero a imagen Mascara
   MOVD XMM4,dword[EDX+EBX]
-       
-  ;No borrar
-  MOVD XMM7,[unos]        
-   
-  PAND XMM6,XMM4 ;aplicamos mascara a vectorA
-  PANDN XMM4,XMM7 ;invertimos mascara
+  
   PAND XMM5,XMM4 ;aplicamos mascara a vectorB
+  PANDN XMM4,XMM7 ;invertimos mascara
+  PAND XMM6,XMM4 ;aplicamos mascara a vectorA
   POR  XMM6,XMM5 ;merge a y b
   
-
-  copiarResultado:
-
   MOV EDX,[EBP+8] ;puntero a resultado
   MOVD [EDX + EBX], XMM6 ;COPIO EL RESULTADO AL VECTOR
-                      ;EN LA POSICION INDICADA
-                      
+                         ;EN LA POSICION INDICADA
+
   ADD EBX,4 ;nos desplazamos de a 32 bits 
   CMP EBX,[cantidad]
   JL ciclar
-  
-  exit:
   
   MOV ESP,EBP
   POP EBP   
