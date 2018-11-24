@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 	free(vectorMask);
 
 	//imprimir resultados
-	printf("%iB, C: %.2f ms :: ASM: %.2f ms\n", cant, tiempoC, tiempoAsm);
+	printf("%iB, C: %.0f ms :: ASM: %.0f ms\n", cant, tiempoC, tiempoAsm);
 	return 0;
 }
 
